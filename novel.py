@@ -12,8 +12,10 @@ import sqlite3 as sq
 con = sq.connect("/Users/imperium/Documents/GitHub/novel-console-application-TheLordInquisitor/novel.db")
 c = con.cursor()
 
-#Getting data from the database
 def get_data(column):
+    """
+    Getting data from the database as specified in the parameter above
+    """
     if column == 'novelName':
         sql = c.execute("SELECT Name FROM Novels")
     elif column == 'authorName':
@@ -26,15 +28,20 @@ def get_data(column):
     return data
 
 
-#Inserting the novel into the database
-def insert_novels(novelName, novelQuantity, novelID, authorID):
-    insertion = ('INSERT INTO Novels (Name, Quantity, NovelID, AuthorID) Values ("' + str(novelName) + '", ' + str(novelQuantity) + ', ' + str(novelID) + ', ' + str(authorID) + ')');
+def insert_novels(nName, nGenre, nID, aID):
+    """
+    Inserting the novel into the database"
+    """
+    insertion = ('INSERT INTO Novels (Name, Genre, NovelID, AuthorID) Values ("' + str(nName) + '", "' + str(nGenre) + '", ' + str(nID) + ', ' + str(aID) + ')');
     sql = c.execute(insertion)
-    con.commit()
+    # con.commit()
 
 
-#Create the menu
 def render_menu():
+    """
+    This function is used to create the menu
+    """
+
     print("\n----------------\n")
     print("1. Display Novels\n")
     print("2. Add Novels\n")
@@ -56,18 +63,25 @@ def render_menu():
 
 
 def end_program():
+    """
+    This function closes the database and end the program
+    """
     print("\nQuitting now. Thank you for using this application\n")
     con.close()
 
 
 def display(table):
-    #Select which data to display based on the parameter
+    """
+    This function display a list in a neat way as specified in the paramater
+    """
+    
+    # Select which data to display based on the parameter
     if table == 'novels':
         table = get_data('novelName')
     elif table == 'authors':
         table = get_data('authorName')
-
-    #Code from Ms. Richardson - This display the list in a neat way
+ 
+    # Code from Ms. Richardson - This display the list in a neat way
     tbl = "|---------------------------\n\n"
     for eName in table:
         for field in eName:
@@ -80,11 +94,16 @@ def display(table):
     
 
 def add_novels():
+    """
+    This function ask the user for info about the novel and add it to the
+    database accordingly. It also tells the user the moment they enters
+    an error, explain the error, and let them try again immediately.
+    """
 
-    #Get data
+    # Get data
     display('authors')
 
-    #Get data from database
+    # Get data from database
     authorList = get_data('authorName')
     idListAuthor = get_data('authorID')
     idListNovel = get_data('novelID')
@@ -98,16 +117,15 @@ def add_novels():
             if author == authorList[i][0]:
                 authorUnknown = False
         if authorUnknown:
-            print("You need to enter the author's name correctly")
+            print("You need to enter the author's name correctly for the ID to match")
     authorID = idListAuthor[i][0]
-    print(authorID)
 
 
-    #Get the name and the quantity from the user   
+    # Get the name and the genre from the user   
     novelName = input("Enter novel name: ")
-    novelQuantity = int(input("Enter amount: "))
+    novelGenre = input("Enter novel genre: ")
 
-    #Get the new ID and check if it's taken or not
+    # Get the new ID and check if it's taken or not
     needID = True
     while needID:
         novelID = int(input("Enter novel ID: "))
@@ -117,22 +135,10 @@ def add_novels():
                 needID = True
                 print("The ID you've entered is already taken.")
 
-    #Final check
-    check_and_enter_selection(novelName, novelQuantity, novelID, authorID)
-    
+    # Insert the novel
+    insert_novels(novelName, novelGenre, novelID, authorID)
 
-#Code from Ms. Richardson
-def check_and_enter_selection(name, quantity, selfID, foreignID):
-    try:
-        insert_novels(name, quantity, selfID, foreignID)
-        print("Success", "Your novel has been added")
-
-    except:
-        print("Error- Try again. Perhaps your novel ID is taken")
-        return
-
-
-#The menu
+# The menu
 while(render_menu()):
     print("\n\nWelcome to our library system")
 
