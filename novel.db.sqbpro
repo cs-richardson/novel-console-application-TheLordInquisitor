@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/Users/imperium/novel.db" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><current_tab id="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="893"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="Consumers"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Authors" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort><column index="3" mode="1"/></sort><column_widths/><filter_values/><display_formats/><hidden_columns/><plot_y_axes/></table><table schema="main" name="Consumers" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort/><column_widths/><filter_values/><display_formats/><hidden_columns/><plot_y_axes/></table><table schema="main" name="Novels" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk=""><sort/><column_widths/><filter_values/><display_formats/><hidden_columns/><plot_y_axes/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">
+DROP TABLE IF EXISTS Consumers;
+DROP TABLE IF EXISTS Novels;
+DROP TABLE IF EXISTS Authors;
+
+
+CREATE TABLE Consumers
+(
+	Name VARCHAR(50) NOT NULL,
+	DOB DATE NOT NULL,
+	ConsumerID INT NOT NULL,
+	PRIMARY KEY (ConsumerID)
+);
+
+
+CREATE TABLE Novels
+(
+	Genre VARCHAR(50) NOT NULL,
+	Publisher VARCHAR(50) NOT NULL,
+	NovelID INT NOT NULL,
+	PRIMARY KEY (NovelID) 
+);
+
+
+
+CREATE TABLE Authors
+(
+	Name VARCHAR(50) NOT NULL,
+	DOB DATE NOT NULL,
+	AuthorID INT NOT NULL,
+	PRIMARY KEY (AuthorID) 
+);
+
+INSERT INTO Consumers(Name, DOB, ConsumerID)
+VALUES (&quot;Son&quot;,  2003, 11111);
+
+INSERT INTO Consumers(Name,  DOB, ConsumerID)
+VALUES (&quot;Julian&quot;,  2003, 12551);
+
+INSERT INTO Consumers(Name,  DOB, ConsumerID)
+VALUES (&quot;Gorilla&quot;,  2000, 42052);
+
+INSERT INTO Consumers(Name,  DOB, ConsumerID)
+VALUES (&quot;Vladimir&quot;,  1986, 12246);
+
+INSERT INTO Novels(Genre,  Publisher, NovelID)
+VALUES (&quot;Fantasy&quot;, &quot;Oxford&quot;, 10001);
+
+INSERT INTO Novels(Genre,  Publisher, NovelID)
+VALUES (&quot;Fantasy&quot;,  &quot;Oxford&quot;, 10004);
+
+INSERT INTO Novels(Genre,  Publisher, NovelID)
+VALUES (&quot;Fantasy&quot;,  &quot;Oxford&quot;, 10025);
+
+INSERT INTO Authors(Name,  DOB, AuthorID)
+VALUES (&quot;Joanne Rowling&quot;,  1965, 12056);
+
+INSERT INTO Authors(Name,  DOB, AuthorID)
+VALUES (&quot;Rick Riordan&quot;, 1964, 10386);</sql><current_tab id="0"/></tab_sql></sqlb_project>
